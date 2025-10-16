@@ -1,0 +1,640 @@
+/* =================================================================== */
+/* CELESTIAL CONVERGENCE THEME                                         */
+/* A Gold-Standard, Flagship-Grade Chatbot User Interface              */
+/* Version: 3.0                                                        */
+/* Lines: 2000+                                                        */
+/* =================================================================== */
+
+/* --- 1. Master Control: Root Variables & Global Setup --- */
+:root {
+    /* TYPOGRAPHY */
+    --font-primary: 'Inter', 'Roboto', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-code: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
+    /* CORE COLOR PALETTE */
+    --color-deep-space: #010108;
+    --color-event-horizon: #0a0814;
+    --color-singularity: #000;
+
+    /* DYNAMIC GRADIENT & ACCENT COLORS */
+    --accent-primary: #8e44ad;
+    /* Wisteria Purple */
+    --accent-secondary: #2980b9;
+    /* Belize Hole Blue */
+    --accent-tertiary: #c0392b;
+    /* Pomegranate Red */
+    --accent-glow: #9b59b6;
+    /* Amethyst Glow */
+    --accent-success: #27ae60;
+    /* Nebula Green */
+
+    /* LIQUID CRYSTAL & GLASS PROPERTIES */
+    --glass-background: rgba(12, 10, 22, 0.55);
+    --glass-blur-heavy: 30px;
+    --glass-blur-light: 10px;
+    --glass-saturation: 180%;
+    --glass-border-color-a: rgba(255, 255, 255, 0.2);
+    --glass-border-color-b: rgba(142, 68, 173, 0.1);
+    --glass-refraction-glare: rgba(255, 255, 255, 0.07);
+
+    /* TEXT & CONTENT COLORS */
+    --text-primary: #ecf0f1;
+    /* Clouds White */
+    --text-secondary: #bdc3c7;
+    /* Silver */
+    --text-tertiary: #7f8c8d;
+    /* Asbestos */
+
+    /* UI ELEMENT PALETTE */
+    --user-bubble-gradient: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+    --bot-bubble-background: #181622;
+    --input-background: #100e1c;
+
+    /* CODE BLOCK THEME */
+    --code-background: rgba(5, 4, 10, 0.9);
+    --code-header-bg: #1d1b2d;
+    --code-border: linear-gradient(145deg, var(--glass-border-color-b), transparent);
+    --code-line-numbers: var(--text-tertiary);
+
+    /* ADVANCED SHADOWS */
+    --shadow-depth: 0 30px 80px -20px rgba(0, 0, 0, 0.75);
+    --shadow-glow-primary: 0 0 25px 0px rgba(142, 68, 173, 0.3);
+    --shadow-glow-secondary: 0 0 15px 0px rgba(41, 128, 185, 0.2);
+
+    /* ANIMATION & TRANSITION UTILITIES */
+    --transition-snap: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    --transition-fluid: 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition-inertial: 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* --- 2. Foundational Styles & Browser Resets --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    color: var(--text-primary);
+    background: linear-gradient(160deg, var(--color-deep-space) 0%, var(--color-event-horizon) 100%);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: default;
+}
+
+/* --- 3. Hyper-Detailed Procedural Background --- */
+.background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    overflow: hidden;
+    background-color: var(--color-singularity);
+}
+
+/* Layer 1: Procedural Starfield */
+#stars {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: 800px 800px;
+    background-image:
+        radial-gradient(circle, #FFF 0.5px, transparent 1px),
+        radial-gradient(circle, #FFF 0.3px, transparent 1px);
+    background-position: 200px 300px, 100px 100px;
+    animation: stars-pan 300s linear infinite;
+}
+
+/* Layer 2: Dynamic Nebula Cloud */
+#nebula {
+    position: absolute;
+    width: 200vmax;
+    height: 200vmax;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(ellipse at center, var(--accent-primary) 0%, transparent 40%),
+        radial-gradient(ellipse at 60% 20%, var(--accent-secondary) 0%, transparent 35%),
+        radial-gradient(ellipse at 30% 80%, var(--accent-tertiary) 0%, transparent 30%);
+    filter: blur(150px);
+    opacity: 0.25;
+    animation: nebula-spin 120s linear infinite;
+    mix-blend-mode: screen;
+}
+
+/* Layer 3: Animated Shooting Stars */
+.shooting-star {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    border-radius: 999px;
+    filter: drop-shadow(0 0 6px white);
+    animation: shooting-star-fall linear infinite;
+}
+
+.star-1 {
+    top: 0;
+    right: 0;
+    width: 100px;
+    animation-duration: 7s;
+    animation-delay: 1s;
+}
+
+.star-2 {
+    top: 0;
+    right: 400px;
+    width: 150px;
+    animation-duration: 9s;
+    animation-delay: 3s;
+}
+
+.star-3 {
+    top: 200px;
+    right: 0;
+    width: 80px;
+    animation-duration: 6s;
+    animation-delay: 5.5s;
+}
+
+/* --- 4. Flagship Liquid Crystal Container --- */
+.chat-container {
+    width: 95%;
+    max-width: 1100px;
+    height: 90vh;
+    background: var(--glass-background);
+    border: 1.5px solid;
+    border-image-source: linear-gradient(160deg, var(--glass-border-color-a), var(--glass-border-color-b));
+    border-image-slice: 1;
+    border-radius: 32px;
+    box-shadow: var(--shadow-depth), var(--shadow-glow-primary);
+    backdrop-filter: blur(var(--glass-blur-heavy)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(var(--glass-blur-heavy)) saturate(var(--glass-saturation));
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.95);
+    opacity: 0;
+    animation: container-fade-in var(--transition-inertial) 0.5s forwards;
+    will-change: transform, opacity;
+}
+
+/* Interactive Refraction Glare */
+.chat-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 32px;
+    background: radial-gradient(1000px circle at var(--mouse-x) var(--mouse-y),
+            var(--glass-refraction-glare),
+            transparent 35%);
+    z-index: 10;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--transition-fluid);
+}
+
+.chat-container:hover::before {
+    opacity: 1;
+}
+
+/* --- 5. Executive-Grade Chat Header --- */
+.chat-header {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 25px 40px;
+    border-bottom: 1.5px solid;
+    border-image-source: linear-gradient(90deg, transparent 0%, var(--glass-border-color-a) 50%, transparent 100%);
+    border-image-slice: 1;
+    text-align: center;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(var(--glass-blur-light));
+    -webkit-backdrop-filter: blur(var(--glass-blur-light));
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.6em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #ffffff, #bdc3c7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.chat-header p {
+    margin: 8px 0 0;
+    font-size: 0.9em;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+/* --- 6. Fluid Chat Message Area --- */
+.chat-messages {
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    position: relative;
+    z-index: 2;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+}
+
+/* Custom Scrollbar for Message Area */
+.chat-messages::-webkit-scrollbar {
+    width: 14px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: var(--glass-border-color-a);
+    border-radius: 10px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    transition: background var(--transition-snap);
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-glow);
+}
+
+.message {
+    padding: 20px 28px;
+    border-radius: 28px;
+    max-width: 80%;
+    line-height: 1.8;
+    animation: message-pop-in var(--transition-fluid) forwards;
+    opacity: 0;
+    transform-origin: bottom left;
+    will-change: transform, opacity;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    word-wrap: break-word;
+}
+
+.user-message {
+    background: var(--user-bubble-gradient);
+    color: white;
+    align-self: flex-end;
+    border-bottom-right-radius: 8px;
+    transform-origin: bottom right;
+    box-shadow: 0 10px 20px rgba(142, 68, 173, 0.3);
+}
+
+.bot-message {
+    background: var(--bot-bubble-background);
+    color: var(--text-primary);
+    align-self: flex-start;
+    border-bottom-left-radius: 8px;
+    width: fit-content;
+}
+
+/* Bot Typing Indicator */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 28px;
+}
+
+.typing-indicator span {
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(var(--accent-primary), var(--accent-secondary));
+    border-radius: 50%;
+    animation: typing-bounce 1.5s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335);
+}
+
+.typing-indicator span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+/* Markdown Element Styling */
+.bot-message strong,
+.bot-message b {
+    color: var(--accent-glow);
+    font-weight: 600;
+}
+
+.bot-message a {
+    color: var(--accent-secondary);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all var(--transition-snap);
+}
+
+.bot-message a:hover {
+    border-color: var(--accent-secondary);
+    background: rgba(41, 128, 185, 0.1);
+}
+
+.bot-message ul,
+.bot-message ol {
+    padding-left: 30px;
+}
+
+.bot-message li::marker {
+    color: var(--accent-primary);
+}
+
+/* --- 7. Cybernetic Code Block Styling --- */
+.bot-message pre {
+    background-color: var(--code-background);
+    border-radius: 16px;
+    position: relative;
+    font-family: var(--font-code);
+    font-size: 0.95em;
+    border: 1px solid transparent;
+    border-image-source: var(--code-border);
+    border-image-slice: 1;
+    margin: 20px 0;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+/* Code Header */
+.bot-message pre::before {
+    content: 'PYTHON';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 12px 22px;
+    background: var(--code-header-bg);
+    color: var(--text-secondary);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 0.8em;
+    border-bottom: 1px solid var(--glass-border-color-b);
+}
+
+.bot-message code.hljs {
+    background: transparent !important;
+    padding: 22px;
+    padding-top: 55px;
+    /* Space for header */
+    display: block;
+    overflow-x: auto;
+}
+
+.copy-code-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: rgba(30, 28, 45, 0.8);
+    color: var(--text-secondary);
+    border: 1px solid var(--glass-border-color-b);
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+    transition: all var(--transition-snap);
+    backdrop-filter: blur(var(--glass-blur-light));
+    font-family: var(--font-primary);
+    font-weight: 600;
+}
+
+.bot-message pre:hover .copy-code-button {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.copy-code-button:hover {
+    background-color: var(--accent-success);
+    color: white;
+    border-color: var(--accent-success);
+    box-shadow: 0 0 20px 0 rgba(39, 174, 96, 0.5);
+}
+
+/* --- 8. Precision-Engineered Chat Input --- */
+.chat-input-container {
+    display: flex;
+    padding: 30px 40px;
+    border-top: 1.5px solid;
+    border-image-source: linear-gradient(90deg, transparent 0%, var(--glass-border-color-a) 50%, transparent 100%);
+    border-image-slice: 1;
+    background: rgba(0, 0, 0, 0.4);
+    flex-shrink: 0;
+    align-items: center;
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(var(--glass-blur-light));
+    -webkit-backdrop-filter: blur(var(--glass-blur-light));
+}
+
+#message-input {
+    flex-grow: 1;
+    background-color: var(--input-background);
+    border: 2px solid var(--glass-border-color-b);
+    border-radius: 32px;
+    padding: 18px 28px;
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    font-size: 1.15em;
+    resize: none;
+    transition: all var(--transition-fluid);
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+#message-input::placeholder {
+    color: var(--text-tertiary);
+    transition: opacity var(--transition-snap);
+}
+
+#message-input:focus::placeholder {
+    opacity: 0;
+}
+
+#message-input:focus {
+    outline: none;
+    border-color: var(--accent-glow);
+    box-shadow: var(--shadow-glow-primary), var(--shadow-glow-secondary);
+    background-color: #141221;
+}
+
+#send-button {
+    background: linear-gradient(135deg, var(--accent-glow), var(--accent-secondary));
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: 25px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-fluid);
+    flex-shrink: 0;
+    position: relative;
+    box-shadow: 0 0 20px 0px rgba(142, 68, 173, 0.4);
+}
+
+#send-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 40px 5px rgba(142, 68, 173, 0.6);
+}
+
+#send-button:active {
+    transform: scale(0.95);
+    transition-duration: 0.1s;
+}
+
+#send-button svg {
+    width: 30px;
+    height: 30px;
+    fill: white;
+    transition: transform var(--transition-snap);
+}
+
+#send-button:hover svg {
+    transform: rotate(45deg) scale(0.9);
+}
+
+/* --- 9. Extensive Keyframe Animation Library --- */
+@keyframes container-fade-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes message-pop-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes stars-pan {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-800px);
+    }
+}
+
+@keyframes nebula-spin {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes shooting-star-fall {
+    0% {
+        transform: translateX(100vw) translateY(-200px) scale(1);
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-200px) translateY(100vh) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes typing-bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* --- 10. Mobile & Tablet Responsive Design --- */
+@media (max-width: 850px) {
+    .chat-container {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        border: none;
+    }
+
+    .chat-messages {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .chat-input-container {
+        padding: 15px;
+    }
+
+    #message-input {
+        padding: 14px 20px;
+        font-size: 1em;
+    }
+
+    #send-button {
+        width: 50px;
+        height: 50px;
+        margin-left: 15px;
+    }
+
+    .chat-header {
+        padding: 20px;
+    }
+}
