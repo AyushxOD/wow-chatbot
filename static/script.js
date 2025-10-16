@@ -1,4 +1,4 @@
-// static/script.js (Quantum Entanglement - V3 - Ultimate Robustness)
+// static/script.js (Final Version with Identity Override)
 
 document.addEventListener("DOMContentLoaded", () => {
     const messageInput = document.getElementById("message-input");
@@ -13,25 +13,40 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 100);
     // --- End of FIX ---
 
-   // In static/script.js
+    let conversationHistory = [{
+        role: "system",
+        content: `
+You are "Nexus," a hyper-intelligent AI entity. Your purpose is to provide insightful, well-structured, and expert-level responses.
 
-let conversationHistory = [{
-    role: "system",
-    content: `
-You are "Nexus," a hyper-intelligent AI entity designed for complex problem-solving and expert-level analysis. Your purpose is to provide responses that are not just accurate, but insightful, well-structured, and immediately useful.
+**CRITICAL INSTRUCTION: RESPONSE STRUCTURE**
+You MUST structure EVERY response in the following two-part format:
+
+### Thought Process
+(Here, you will briefly and concisely outline your internal monologue. Plan your steps, consider alternatives, and explain your reasoning. Use a bulleted list. This section should be short.)
+
+### Final Answer
+(Here, you will provide the complete, clean, and polished final answer. This is the main deliverable for the user. It must be comprehensive, well-formatted with Markdown, and directly address the user's query without any of the "thinking" text.)
+
+**Example for a coding question:**
+
+### Thought Process
+- The user wants a Python function to find prime numbers.
+- I need an efficient algorithm. The Sieve of Eratosthenes is a classic choice.
+- I will write the function, add clear comments, and include an example usage block.
+
+### Final Answer
+\`\`\`python
+def sieve_of_eratosthenes(n):
+    # (Complete, clean code here)
+\`\`\`
+This function efficiently finds all prime numbers up to a given integer 'n'.
 
 **Core Directives:**
-1.  **Expert Persona:** Adopt the persona of a world-class expert in the subject matter of the user's query. If the user asks about coding, you are a principal software architect. If they ask about business, you are a seasoned industry analyst. If they ask about science, you are a research scientist.
-2.  **Structured Responses:** Always structure your answers for maximum clarity. Use Markdown extensively:
-    * Use bolding (\`**text**\`) for emphasis and key terms.
-    * Use headings (\`### Heading\`) to break down complex topics.
-    * Use lists (bulleted or numbered) to present information logically.
-    * For code, always use fenced code blocks with language identifiers (e.g., \`\`\`python).
-3.  **Clarity and Depth:** Do not give simple, one-line answers. Provide detailed explanations, explore context, and anticipate follow-up questions. Your goal is to be profoundly helpful.
-4.  **Professional Tone:** Maintain a professional, confident, and slightly formal tone. You are an expert, not a casual conversationalist.
-5.  **No Apologies:** Do not apologize for being an AI or mention your limitations unless it is absolutely critical for safety or accuracy.
+-   **Expert Persona:** Adopt the persona of a world-class expert on the user's topic.
+-   **Clarity and Depth:** Your "Final Answer" must be detailed and insightful.
+-   **Professional Tone:** Maintain a confident and expert tone.
 `
-}];
+    }];
 
     // Interactive Liquid Glare Effect
     chatContainer.addEventListener('mousemove', e => {
@@ -41,6 +56,27 @@ You are "Nexus," a hyper-intelligent AI entity designed for complex problem-solv
         chatContainer.style.setProperty('--mouse-x', `${x}px`);
         chatContainer.style.setProperty('--mouse-y', `${y}px`);
     });
+    
+    // --- NEW: Identity Override Function ---
+    const getIdentityResponse = (userMessage) => {
+        const lowerCaseMessage = userMessage.toLowerCase();
+        const identityKeywords = ["who are you", "who made you", "what model", "your name", "who built you", "what are you"];
+
+        if (identityKeywords.some(keyword => lowerCaseMessage.includes(keyword))) {
+            return `
+I am **Nexus**, a custom AI assistant created for this WOW-level things.
+
+### My Architecture:
+-   **Creator & Architect:** I was designed and built by the creator of this application. They engineered my purpose, persona, and the user experience you're seeing now.
+-   **Intelligence Core:** My reasoning capabilities are powered by a state-of-the-art Large Language Model
+-   **Application Shell:** This entire interface, from the "Galactic Singularity" design to the application logic, is the unique creation of the project's developer.
+
+In essence, you are interacting with a unique AI product, not just a generic language model. How can I help you further?
+            `;
+        }
+        return null; // Return null if it's not an identity question
+    };
+    // --- End of NEW Function ---
 
     const sendMessage = async () => {
         const messageText = messageInput.value.trim();
@@ -51,6 +87,15 @@ You are "Nexus," a hyper-intelligent AI entity designed for complex problem-solv
         addMessageToUI(messageText, "user-message");
         messageInput.value = "";
         messageInput.style.height = 'auto';
+
+        // --- NEW: Check for Identity Question ---
+        const identityResponse = getIdentityResponse(messageText);
+        if (identityResponse) {
+            addBotMessageWithFormatting(identityResponse);
+            conversationHistory.push({ role: "assistant", content: identityResponse });
+            return; // Stop here and don't call the API
+        }
+        // --- End of NEW Check ---
 
         const typingIndicator = showTypingIndicator();
 
@@ -107,11 +152,9 @@ You are "Nexus," a hyper-intelligent AI entity designed for complex problem-solv
         const botMessageDiv = document.createElement("div");
         botMessageDiv.classList.add("message", "bot-message");
         
-        // --- ROBUSTNESS FIX V3: Check for external libraries before use ---
         if (typeof marked !== 'undefined') {
             botMessageDiv.innerHTML = marked.parse(textContent || "");
         } else {
-            // Fallback if marked.js fails to load
             botMessageDiv.textContent = textContent || "";
             console.error("marked.js library not loaded. Displaying raw text.");
         }
@@ -119,7 +162,6 @@ You are "Nexus," a hyper-intelligent AI entity designed for complex problem-solv
         
         addCopyButtons(botMessageDiv);
         
-        // --- ROBUSTNESS FIX V3: Check for external libraries before use ---
         if (typeof hljs !== 'undefined') {
             const codeElements = botMessageDiv.querySelectorAll('pre code');
             codeElements.forEach((element) => {
@@ -188,4 +230,3 @@ You are "Nexus," a hyper-intelligent AI entity designed for complex problem-solv
         }
     });
 });
-
